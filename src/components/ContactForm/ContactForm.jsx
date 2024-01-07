@@ -1,9 +1,13 @@
+// src/components/ContactForm/ContactForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../AppRedux/slice';
 
 const ContactForm = ({ contacts, onAddContact }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -23,7 +27,7 @@ const ContactForm = ({ contacts, onAddContact }) => {
       return;
     }
 
-    onAddContact({ id: new Date().getTime().toString(), name, number });
+    dispatch(addContact({ id: new Date().getTime().toString(), name, number }));
 
     setName('');
     setNumber('');
